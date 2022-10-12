@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import uuid 
-from datetime import date, datetime
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from flask_login import LoginManager
@@ -48,7 +48,7 @@ class Content(db.Model):
     id = db.Column(db.String, primary_key=True)
     title = db.Column(db.String(5000), nullable=False)
     text = db.Column(db.String(65000), nullable=False)
-    date_added = db.Column(db.DateTime(timezone=True), nullable=False, server_default=date.now())
+    date_added = db.Column(db.DateTime, nullable=False, server_default=datetime.utcnow)
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable=False)
 
     def __init__(self, title, text, date_added, user_token, id=''):
